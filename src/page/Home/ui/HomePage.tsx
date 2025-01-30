@@ -25,7 +25,10 @@ export default function HomePage() {
         elevation={4}
       >
         <Typography variant="h2">
-          개떡찰떡
+          <Typography color="primary" variant="inherit" component="span">
+            게
+          </Typography>
+          떡찰떡
           <br />
           타이머
         </Typography>
