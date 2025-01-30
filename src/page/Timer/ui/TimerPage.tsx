@@ -1,7 +1,14 @@
-import React from 'react'
+import { Container, Typography } from "@mui/material";
+import React from "react";
 
-export default function TimerPage() {
+export interface TimerPageProps {
+  timerParams: string[];
+}
+
+export default function TimerPage({ timerParams }: TimerPageProps) {
   return (
-    <div>TimerPage</div>
-  )
+    <Container>
+      <Typography>{JSON.stringify(timerParams)}</Typography>
+    </Container>
+  );
 }
