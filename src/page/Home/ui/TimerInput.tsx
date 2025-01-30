@@ -29,7 +29,14 @@ export default function TimerInput() {
   }, [path]);
 
   return (
-    <Box sx={{ alignItems: "center", display: "flex" }}>
+    <Box
+      sx={{
+        alignItems: "flex-end",
+        display: "flex",
+        flexDirection: "column",
+        gap: 1,
+      }}
+    >
       <TextField
         value={path}
         onChange={(e) => setPath(e.target.value)}
@@ -39,7 +46,12 @@ export default function TimerInput() {
         helperText={error}
         autoFocus
       />
-      <Button onClick={onSubmit} endIcon={<ArrowForward />}>
+      <Button
+        onClick={onSubmit}
+        endIcon={<ArrowForward />}
+        size="large"
+        variant="outlined"
+      >
         Go!
       </Button>
     </Box>
