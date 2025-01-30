@@ -1,6 +1,7 @@
 "use client";
 
 import useTimer from "@/hooks/useTimer";
+import useOnMount from "@/shared/snippets/useOnMount";
 import { Box } from "@mui/material";
 import ControlBar from "./ControlBar";
 import TimerView from "./TimerView";
@@ -14,6 +15,11 @@ export interface TimerPageProps {
 // 모델링 사진 참고해서 Parser 구현
 export default function TimerPage({ timerParams }: TimerPageProps) {
   const timer = useTimer({ initialSeconds: parseInt(timerParams[0], 10) });
+
+  useOnMount(() => {
+    console.log("Go!");
+    timer.start();
+  }, [timer]);
 
   return (
     <Box

@@ -37,6 +37,7 @@ export default function TimerInput() {
         onKeyDown={(e) => e.key === "Enter" && onSubmit()}
         error={!!error}
         helperText={error}
+        autoFocus
       />
       <Button onClick={onSubmit} endIcon={<ArrowForward />}>
         Go!
