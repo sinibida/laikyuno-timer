@@ -1,1 +1,1 @@
-export { default } from "./ui/TimerPage";
+export { default, type TimerPageProps as TimerPageParams } from "./ui/TimerPage";
