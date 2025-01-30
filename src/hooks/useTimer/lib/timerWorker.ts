@@ -12,6 +12,7 @@ function work(message: TimerMessageIn) {
   switch (message.type) {
     case "on":
       {
+        if (timeout !== undefined) return;
         timeout = setInterval(() => {
           postMessage({
             type: "tick",
@@ -23,13 +24,10 @@ function work(message: TimerMessageIn) {
     case "off":
       {
         clearInterval(timeout);
+        timeout = undefined;
       }
       break;
   }
-
-  return {
-    stub: `INPUT: ${message.type}`,
-  };
 }
 
 onmessage = (e: MessageEvent<TimerMessageIn>) => {

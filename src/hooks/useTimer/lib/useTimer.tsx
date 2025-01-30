@@ -16,6 +16,7 @@ export type UseTimerReturn = {
   pause: () => void;
   resume: () => void;
 
+  initialSeconds: number;
   seconds: number;
   state: UseTimerState;
 };
@@ -91,6 +92,7 @@ export default function useTimer({
   }, [seconds]);
 
   return {
+    initialSeconds,
     seconds,
     state,
     start: restart,
