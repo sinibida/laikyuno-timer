@@ -1,7 +1,14 @@
 import TimerSettings from "@/types/TimerSettings/TimerSettings";
 
-type ParserOutput = {
+export interface SuccessParserOutput {
+  type: "success";
   timer: TimerSettings;
-};
+}
+
+export interface FailParserOutput {
+  type: "fail";
+}
+
+type ParserOutput = SuccessParserOutput | FailParserOutput;
 
 export default ParserOutput;

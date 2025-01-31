@@ -1,12 +1,12 @@
 import ParserInput from "./ParserInput";
-import ParserOptions from "./ParserOptions";
+import ParserOptions, { defaultParserOptions } from "./ParserOptions";
 import ParserOutput from "./ParserOutput";
 import _parse from "../lib/parse";
 
 export default class Parser {
-  opt: ParserOptions;
+  private opt: ParserOptions;
 
-  constructor(opt: ParserOptions) {
+  constructor(opt: ParserOptions = defaultParserOptions) {
     this.opt = opt;
   }
 
