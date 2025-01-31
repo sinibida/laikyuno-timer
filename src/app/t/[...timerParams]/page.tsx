@@ -1,6 +1,5 @@
 import { Parser } from "@/domains/Parser";
 import TimerPage from "@/page/Timer";
-import React from "react";
 
 type Params = {
   timerParams: string[];

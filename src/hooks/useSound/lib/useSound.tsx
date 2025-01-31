@@ -1,6 +1,8 @@
 "use client";
 
+import useOnMount from "@/snippets/useOnMount";
 import { useEffect, useRef } from "react";
+import { isAutoplayAllowed } from "./isAutoplayAllowed";
 
 export type UseSoundReturn = {
   play: (opt?: UseSoundPlayOptions) => void;
@@ -13,6 +15,8 @@ export type UseSoundProps = {
    * @default 0.75
    */
   volume?: number;
+
+  onAutoplayErrorDetected?: () => void;
 };
 
 export type UseSoundPlayOptions = {
@@ -23,6 +27,7 @@ export type UseSoundPlayOptions = {
 export default function useSound({
   source,
   volume = 0.75,
+  onAutoplayErrorDetected,
 }: UseSoundProps = {}): UseSoundReturn {
   const audioRef = useRef<HTMLAudioElement>(new Audio());
 
@@ -35,6 +40,13 @@ export default function useSound({
     if (audioRef.current === null) return;
     audioRef.current.volume = volume;
   }, [volume]);
+
+  useOnMount(() => {
+    (async () => {
+      const ok = await isAutoplayAllowed();
+      if (!ok) onAutoplayErrorDetected?.();
+    })();
+  }, [onAutoplayErrorDetected]);
 
   const play = () => {
     if (audioRef.current === null) return;
