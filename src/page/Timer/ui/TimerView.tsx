@@ -1,8 +1,8 @@
 "use client";
 
 import { UseTimerReturn } from "@/hooks/useTimer";
-import fromSeconds from "@/shared/snippets/fromSeconds";
-import mergeSx from "@/shared/snippets/mergeSx";
+import fromSeconds from "@/snippets/fromSeconds";
+import mergeSx from "@/snippets/mergeSx";
 import { Box, Container, Typography } from "@mui/material";
 import { format } from "date-fns";
 import { useMemo } from "react";

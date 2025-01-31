@@ -8,7 +8,7 @@ import { useCallback, useEffect, useMemo } from "react";
 
 const primaryKey = [" ", "Enter"];
 const secondaryKey = ["r", "R"];
-const homeKey = ["Backspace"];
+const homeKey = ["Backspace", "q"];
 
 export default function ControlBar({ timer }: { timer: UseTimerReturn }) {
   const router = useRouter();

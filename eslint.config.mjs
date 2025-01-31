@@ -17,9 +17,10 @@ const eslintConfig = [
       "react-hooks/exhaustive-deps": [
         "warn",
         {
-          additionalHooks: "useOnChange|useOnMount",
+          additionalHooks: "useOnChange|useOnMount|useOnUnmount",
         },
       ],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     },
   },
 ];
