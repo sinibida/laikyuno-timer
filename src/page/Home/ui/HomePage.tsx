@@ -1,39 +1,45 @@
-import { Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Paper, Typography } from "@mui/material";
 import TimerInput from "./TimerInput";
 import PatternOverlay from "./PatternOverlay";
 
 export default function HomePage() {
   return (
-    <Container
+    <Box
       sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
         height: "100vh",
         backgroundColor: "primary.main",
       }}
     >
-      <PatternOverlay />
-      <Paper
+      <Container
         sx={{
+          height: "100%",
           display: "flex",
-          gap: 4,
-          p: 6,
-          flexDirection: "column",
-          zIndex: 100,
+          alignItems: "center",
+          justifyContent: "center",
         }}
-        elevation={4}
       >
-        <Typography variant="h2">
-          <Typography color="primary" variant="inherit" component="span">
-            게
+        <PatternOverlay />
+        <Paper
+          sx={{
+            display: "flex",
+            gap: 4,
+            p: 6,
+            flexDirection: "column",
+            zIndex: 100,
+          }}
+          elevation={4}
+        >
+          <Typography variant="h2">
+            <Typography color="primary" variant="inherit" component="span">
+              게
+            </Typography>
+            떡찰떡
+            <br />
+            타이머
           </Typography>
-          떡찰떡
-          <br />
-          타이머
-        </Typography>
-        <TimerInput />
-      </Paper>
-    </Container>
+          <TimerInput />
+        </Paper>
+      </Container>
+    </Box>
   );
 }
