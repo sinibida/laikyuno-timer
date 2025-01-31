@@ -20,6 +20,7 @@ const eslintConfig = [
           additionalHooks: "useOnChange|useOnMount",
         },
       ],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     },
   },
 ];

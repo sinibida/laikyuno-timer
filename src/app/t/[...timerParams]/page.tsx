@@ -1,3 +1,4 @@
+import { Parser } from "@/domains/Parser";
 import TimerPage from "@/page/Timer";
 import React from "react";
 
@@ -7,5 +8,10 @@ type Params = {
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { timerParams } = await params;
-  return <TimerPage timerParams={timerParams} />;
+  const parser = new Parser();
+  const out = parser.parse({ slugs: timerParams });
+  if (out.type !== "success") {
+    throw new Error("Unimplemented");
+  }
+  return <TimerPage timerSettings={out.timer} />;
 }
