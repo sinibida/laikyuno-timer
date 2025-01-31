@@ -48,6 +48,15 @@ export default function useSound({
     })();
   }, [onAutoplayErrorDetected]);
 
+  useEffect(() => {
+    // react-hooks/exhaustive-deps
+    const audio = audioRef.current;
+    return () => {
+      audio.pause();
+      audio.srcObject = null;
+    };
+  }, []);
+
   const play = () => {
     if (audioRef.current === null) return;
 
