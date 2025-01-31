@@ -1,11 +1,13 @@
 "use client";
 
+import useSound from "@/hooks/useSound";
 import useTimer from "@/hooks/useTimer";
+import useOnChange from "@/snippets/useOnChange";
 import useOnMount from "@/snippets/useOnMount";
+import TimerSettings from "@/types/TimerSettings/TimerSettings";
 import { Box } from "@mui/material";
 import ControlBar from "./ControlBar";
 import TimerView from "./TimerView";
-import TimerSettings from "@/types/TimerSettings/TimerSettings";
 
 export interface TimerPageProps {
   timerSettings: TimerSettings;
@@ -13,8 +15,11 @@ export interface TimerPageProps {
 
 // LEFTOFF:
 // -SOund
-// - 모델링 사진 참고해서 Parser 구현
 export default function TimerPage({ timerSettings }: TimerPageProps) {
+  const sound = useSound({
+    source: "/sound/alarm.wav",
+  });
+
   if (timerSettings.type !== "single") {
     throw new Error("Unimplemented");
   }
@@ -25,6 +30,20 @@ export default function TimerPage({ timerSettings }: TimerPageProps) {
   useOnMount(() => {
     timer.start();
   }, [timer]);
+
+  useOnChange(
+    (before) => {
+      if (before == "running" && timer.state === "idle") {
+        sound.play();
+      }
+
+      if (before == "idle" && timer.state == "running") {
+        sound.inturrupt();
+      }
+    },
+    [sound, timer.state],
+    timer.state
+  );
 
   return (
     <Box

@@ -1,11 +1,10 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export type UseSoundReturn = {
   play: (opt?: UseSoundPlayOptions) => void;
-
-  soundNode: ReactNode;
+  inturrupt: () => void;
 };
 
 export type UseSoundProps = {
@@ -25,13 +24,15 @@ export default function useSound({
   source,
   volume = 0.75,
 }: UseSoundProps = {}): UseSoundReturn {
-  const audioRef = useRef<HTMLAudioElement>(null);
-
-  const soundNode = <audio ref={audioRef} src={source} />;
+  const audioRef = useRef<HTMLAudioElement>(new Audio());
 
   useEffect(() => {
     if (audioRef.current === null) return;
+    audioRef.current.src = source ?? "";
+  }, [source]);
 
+  useEffect(() => {
+    if (audioRef.current === null) return;
     audioRef.current.volume = volume;
   }, [volume]);
 
@@ -42,8 +43,12 @@ export default function useSound({
     audioRef.current.play();
   };
 
+  const inturrupt = () => {
+    audioRef.current.pause();
+  };
+
   return {
     play,
-    soundNode,
+    inturrupt,
   };
 }
