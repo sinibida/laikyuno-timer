@@ -1,13 +1,12 @@
 import { Box, Container, Paper, Typography } from "@mui/material";
 import TimerInput from "./TimerInput";
-import PatternOverlay from "./PatternOverlay";
+import BackgroundOverlay from "./BackgroundOverlay";
 
 export default function HomePage() {
   return (
     <Box
       sx={{
         height: "100vh",
-        backgroundColor: "primary.main",
       }}
     >
       <Container
@@ -18,7 +17,7 @@ export default function HomePage() {
           justifyContent: "center",
         }}
       >
-        <PatternOverlay />
+        <BackgroundOverlay />
         <Paper
           sx={{
             display: "flex",
