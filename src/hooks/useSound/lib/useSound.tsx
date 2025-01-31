@@ -29,7 +29,9 @@ export default function useSound({
   volume = 0.75,
   onAutoplayErrorDetected,
 }: UseSoundProps = {}): UseSoundReturn {
-  const audioRef = useRef<HTMLAudioElement>(new Audio());
+  const audioRef = useRef<HTMLAudioElement>(
+    typeof Audio === "undefined" ? null : new Audio()
+  );
 
   useEffect(() => {
     if (audioRef.current === null) return;
@@ -51,6 +53,8 @@ export default function useSound({
   useEffect(() => {
     // react-hooks/exhaustive-deps
     const audio = audioRef.current;
+    if (audio === null) return;
+
     return () => {
       audio.pause();
       audio.srcObject = null;
@@ -65,7 +69,7 @@ export default function useSound({
   };
 
   const inturrupt = () => {
-    audioRef.current.pause();
+    audioRef.current?.pause();
   };
 
   return {
