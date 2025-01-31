@@ -1,6 +1,6 @@
 "use client";
 
-import { DependencyList, EffectCallback, useEffect, useRef } from "react";
+import { DependencyList, useEffect, useRef } from "react";
 
 /**
  * @param target Effect is called when this value changes.
@@ -19,17 +19,17 @@ import { DependencyList, EffectCallback, useEffect, useRef } from "react";
  * },
  * ```
  */
-export default function useOnChange(
-  effect: EffectCallback,
+export default function useOnChange<T>(
+  effect: (before: T) => void | (() => void),
   deps: DependencyList,
-  target: unknown
+  target: T
 ) {
   const ref = useRef(target);
   useEffect(() => {
     if (ref.current === target) {
       return;
     }
-    effect();
+    effect(ref.current);
     ref.current = target;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [effect, ...(deps ?? []), target]);
