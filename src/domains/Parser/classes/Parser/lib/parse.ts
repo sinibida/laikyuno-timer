@@ -28,7 +28,7 @@ const regexes: RegexMatcher[] = [
   },
   {
     id: 2,
-    pattern: /(\d{1,2})/,
+    pattern: /(\d+)/,
     groupKeys: ["seconds"],
     docs: {
       name: "number -> seconds",
