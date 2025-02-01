@@ -5,7 +5,9 @@ import useTimer from "@/hooks/useTimer";
 import NullSnackbar from "@/snippets/NullSnackbar";
 import useOnChange from "@/snippets/useOnChange";
 import useOnMount from "@/snippets/useOnMount";
-import TimerSettings from "@/types/TimerSettings/TimerSettings";
+import TimerSettings, {
+  TimerSettingsType,
+} from "@/types/TimerSettings/TimerSettings";
 import { Alert, AlertTitle, Box } from "@mui/material";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import ControlBar from "./ControlBar";
@@ -15,8 +17,32 @@ export interface TimerPageProps {
   timerSettings: TimerSettings;
 }
 
-// LEFTOFF:
-// -SOund
+// LATER: capsule this
+const supportedTypes: TimerSettingsType[] = ["repeated", "single"];
+function useTimerSettings(settings: TimerSettings) {
+  if (!supportedTypes.includes(settings.type)) {
+    settings = {
+      type: "single",
+      totalSeconds: settings.totalSeconds,
+      seconds: settings.totalSeconds,
+    };
+  }
+
+  const initialSeconds = (() => {
+    switch (settings.type) {
+      case "single":
+        return settings.seconds;
+      case "repeated":
+        return settings.secPerRepeat * settings.times;
+    }
+  })();
+
+  const timer = useTimer({
+    initialSeconds,
+  });
+  return { timer };
+}
+
 export default function TimerPage({ timerSettings }: TimerPageProps) {
   const onAutoplayErrorDetected = () => {
     enqueueSnackbar({
@@ -36,12 +62,7 @@ export default function TimerPage({ timerSettings }: TimerPageProps) {
     onAutoplayErrorDetected,
   });
 
-  if (timerSettings.type !== "single") {
-    throw new Error("Unimplemented");
-  }
-  const timer = useTimer({
-    initialSeconds: timerSettings.seconds,
-  });
+  const { timer } = useTimerSettings(timerSettings);
 
   useOnMount(() => {
     timer.start();
@@ -72,7 +93,7 @@ export default function TimerPage({ timerSettings }: TimerPageProps) {
     >
       <SnackbarProvider Components={{ default: NullSnackbar }} />
       <Box sx={{ flex: 1, position: "relative" }}>
-        <TimerView timer={timer} />
+        <TimerView timer={timer} timerSettings={timerSettings} />
       </Box>
       <ControlBar timer={timer} />
     </Box>
