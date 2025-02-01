@@ -16,11 +16,31 @@ interface RegexMatcherResult {
   hours?: string;
   minutes?: string;
   seconds?: string;
+  times?: string;
 }
+// LATER
+// 2.1: 곱하기를 추가함.
+// 이놈은 TDD를 좀 때려야겠는걸
 const regexes: RegexMatcher[] = [
   {
+    id: 3,
+    pattern: /(\d+)m(\d+)s?x(\d+)/,
+    groupKeys: ["minutes", "seconds", "times"],
+    docs: {
+      name: "xxmxxsxn",
+    },
+  },
+  {
+    id: 4,
+    pattern: /(\d+)x(\d+)/,
+    groupKeys: ["seconds", "times"],
+    docs: {
+      name: "__xn",
+    },
+  },
+  {
     id: 1,
-    pattern: /(\d{1,2})m(\d{1,2})s?/,
+    pattern: /(\d+)m(\d+)s?/,
     groupKeys: ["minutes", "seconds"],
     docs: {
       name: "xxmxxs",
@@ -68,6 +88,7 @@ export default function parse(
   if (regexed.hours) seconds += parseInt(regexed.hours, 10) * 3600;
   if (regexed.minutes) seconds += parseInt(regexed.minutes, 10) * 60;
   if (regexed.seconds) seconds += parseInt(regexed.seconds, 10);
+  if (regexed.times) seconds *= parseInt(regexed.times, 10);
 
   return {
     type: "success",
