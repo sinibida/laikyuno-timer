@@ -3,12 +3,19 @@
 import { UseTimerReturn } from "@/hooks/useTimer";
 import fromSeconds from "@/snippets/fromSeconds";
 import mergeSx from "@/snippets/mergeSx";
+import TimerSettings from "@/types/TimerSettings/TimerSettings";
 import { Box, Container, Typography } from "@mui/material";
 import { format } from "date-fns";
 import { useMemo } from "react";
 
 // LATER: will be replacable
-export default function TimerView({ timer }: { timer: UseTimerReturn }) {
+export default function TimerView({
+  timer,
+  timerSettings,
+}: {
+  timer: UseTimerReturn;
+  timerSettings: TimerSettings;
+}) {
   const timerText = useMemo(() => {
     if (timer.state === "idle") {
       return "! DONE !";
@@ -23,6 +30,21 @@ export default function TimerView({ timer }: { timer: UseTimerReturn }) {
     () => 1 - timer.seconds / timer.initialSeconds,
     [timer.initialSeconds, timer.seconds]
   );
+
+  const repeatInfo = useMemo(() => {
+    if (timerSettings.type === "repeated") {
+      const passedCnt = Math.floor(
+        (timer.initialSeconds - timer.seconds) / timerSettings.secPerRepeat
+      );
+      return {
+        total: timerSettings.times,
+        passedCnt,
+      };
+    }
+
+    return undefined;
+  }, [timer, timerSettings]);
+
   return (
     <Container
       sx={{
@@ -30,6 +52,7 @@ export default function TimerView({ timer }: { timer: UseTimerReturn }) {
         alignItems: "center",
         justifyContent: "center",
         height: "100%",
+        flexDirection: "column",
       }}
     >
       {timer.state !== "idle" && (
@@ -54,6 +77,11 @@ export default function TimerView({ timer }: { timer: UseTimerReturn }) {
       >
         {timerText}
       </Typography>
+      {repeatInfo && (
+        <Typography variant="h5" sx={{ fontWeight: 300 }}>
+          {repeatInfo.passedCnt}/{repeatInfo.total}
+        </Typography>
+      )}
     </Container>
   );
 }
