@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 
 describe('fromSeconds', () => {
   it('should provide a correct formatting', () => {
-    const result = fromSeconds(98);
-    expect(format(result, "mm:ss")).toEqual("01:38");
+    const result = fromSeconds(98 + 3600 * 2);
+    expect(format(result, "hh:mm:ss")).toEqual("02:01:38");
   });
 });
