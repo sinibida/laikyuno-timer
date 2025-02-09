@@ -1,10 +1,10 @@
 "use client";
 
+import useOnChange from "@/hooks/useOnChange";
+import useOnMount from "@/hooks/useOnMount";
 import useSound from "@/hooks/useSound";
 import useTimer from "@/hooks/useTimer";
 import NullSnackbar from "@/snippets/NullSnackbar";
-import useOnChange from "@/hooks/useOnChange";
-import useOnMount from "@/hooks/useOnMount";
 import TimerSettings, {
   TimerSettingsType,
 } from "@/types/TimerSettings/TimerSettings";
@@ -43,17 +43,18 @@ function useTimerSettings(settings: TimerSettings) {
   return { timer };
 }
 
+const autoplayErrorAlert = (
+  <Alert severity="error">
+    <AlertTitle>자동재생이 비활성화되어 있습니다.</AlertTitle>
+    알람 소리 재생을 위해선 자동재생을 허용해야합니다. 브라우저 환경설정을
+    확인해주세요.
+  </Alert>
+);
+
 export default function TimerPage({ timerSettings }: TimerPageProps) {
   const onAutoplayErrorDetected = () => {
     enqueueSnackbar({
-      variant: undefined,
-      message: (
-        <Alert severity="error">
-          <AlertTitle>자동재생이 비활성화되어 있습니다.</AlertTitle>
-          알람 소리 재생을 위해선 자동재생을 허용해야합니다. 브라우저 환경설정을
-          확인해주세요.
-        </Alert>
-      ),
+      message: autoplayErrorAlert,
     });
   };
 
