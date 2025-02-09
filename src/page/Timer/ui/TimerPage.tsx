@@ -3,8 +3,8 @@
 import useSound from "@/hooks/useSound";
 import useTimer from "@/hooks/useTimer";
 import NullSnackbar from "@/snippets/NullSnackbar";
-import useOnChange from "@/snippets/useOnChange";
-import useOnMount from "@/snippets/useOnMount";
+import useOnChange from "@/hooks/useOnChange";
+import useOnMount from "@/hooks/useOnMount";
 import TimerSettings, {
   TimerSettingsType,
 } from "@/types/TimerSettings/TimerSettings";

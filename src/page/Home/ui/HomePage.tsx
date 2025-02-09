@@ -1,6 +1,7 @@
 import { Box, Container, Paper, Typography } from "@mui/material";
-import TimerInput from "./TimerInput";
 import BackgroundOverlay from "./BackgroundOverlay";
+import TimerInput from "./TimerInput";
+import FooterOverlay from "./FooterOverlay";
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
         }}
       >
         <BackgroundOverlay />
+        <FooterOverlay />
         <Paper
           sx={{
             display: "flex",
