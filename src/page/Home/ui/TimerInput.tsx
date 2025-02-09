@@ -1,14 +1,16 @@
 "use client";
 
-import { Box, Button, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
 import { ArrowForward } from "@mui/icons-material";
-import { useRouter } from "next/navigation";
+import { Box, Button, TextField } from "@mui/material";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function TimerInput() {
-  const [path, setPath] = useState("");
-  const [error, setError] = useState<string>();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [path, setPath] = useState(searchParams.get("input") ?? "");
+  const [error, setError] = useState<string>();
 
   const onSubmit = () => {
     if (path.length === 0) {

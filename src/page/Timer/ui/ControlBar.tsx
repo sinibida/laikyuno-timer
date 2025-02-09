@@ -3,7 +3,7 @@
 import { UseTimerReturn } from "@/hooks/useTimer";
 import { ArrowBack, Loop, Pause, PlayArrow } from "@mui/icons-material";
 import { Button, Container, Divider, Paper } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo } from "react";
 
 const primaryKey = [" ", "Enter"];
@@ -12,6 +12,7 @@ const homeKey = ["Backspace", "q"];
 
 export default function ControlBar({ timer }: { timer: UseTimerReturn }) {
   const router = useRouter();
+  const pathname = usePathname();
 
   const doPrimary = useCallback(() => {
     switch (timer.state) {
@@ -32,8 +33,9 @@ export default function ControlBar({ timer }: { timer: UseTimerReturn }) {
   }, [timer]);
 
   const doHome = useCallback(() => {
-    router.push("/");
-  }, [router]);
+    const prev = pathname.substring(pathname.lastIndexOf("/") + 1);
+    router.push(`/?input=${prev}`);
+  }, [pathname, router]);
 
   const primaryButton = useMemo(() => {
     switch (timer.state) {
