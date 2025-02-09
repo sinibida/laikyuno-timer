@@ -1,5 +1,10 @@
 import HomePage from "@/page/Home";
+import { Suspense } from "react";
 
 export default function Home() {
-  return <HomePage />;
+  return (
+    <Suspense>
+      <HomePage />
+    </Suspense>
+  );
 }

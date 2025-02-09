@@ -1,12 +1,13 @@
 {
   "name": "laikyuno-timer",
-  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest",
+    "test:type": "vitest --typecheck"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
