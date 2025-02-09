@@ -12,6 +12,7 @@ import { Alert, AlertTitle, Box } from "@mui/material";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import ControlBar from "./ControlBar";
 import TimerView from "./TimerView";
+import useTimerViewData from "@/hooks/useTimerViewData";
 
 export interface TimerPageProps {
   timerSettings: TimerSettings;
@@ -83,6 +84,8 @@ export default function TimerPage({ timerSettings }: TimerPageProps) {
     timer.state
   );
 
+  const timerViewData = useTimerViewData(timer, timerSettings);
+
   return (
     <Box
       sx={{
@@ -94,7 +97,7 @@ export default function TimerPage({ timerSettings }: TimerPageProps) {
     >
       <SnackbarProvider Components={{ default: NullSnackbar }} />
       <Box sx={{ flex: 1, position: "relative" }}>
-        <TimerView timer={timer} timerSettings={timerSettings} />
+        <TimerView data={timerViewData} />
       </Box>
       <ControlBar timer={timer} />
     </Box>

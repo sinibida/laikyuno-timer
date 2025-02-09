@@ -1,56 +1,49 @@
 "use client";
 
-import { UseTimerReturn } from "@/hooks/useTimer";
+import { TimerViewData } from "@/hooks/useTimerViewData";
 import fromSeconds from "@/snippets/fromSeconds";
 import mergeSx from "@/snippets/mergeSx";
-import TimerSettings from "@/types/TimerSettings/TimerSettings";
 import { Box, Container, Typography } from "@mui/material";
 import { format } from "date-fns";
 import Head from "next/head";
 import { useEffect, useMemo } from "react";
 
+function formatSeconds(seconds: number) {
+  if (seconds <= 5)
+    return `${Math.floor(seconds)}.${Math.floor((seconds % 1) * 10)}`;
+
+  const t = fromSeconds(Math.floor(seconds));
+  if (seconds >= 3600) return format(t, "hh:mm:ss");
+  if (seconds >= 60) return format(t, "mm:ss");
+  return format(t, "ss");
+}
+
 // LATER: will be replacable
-export default function TimerView({
-  timer,
-  timerSettings,
-}: {
-  timer: UseTimerReturn;
-  timerSettings: TimerSettings;
-}) {
+export default function TimerView({ data }: { data: TimerViewData }) {
   const timerText = useMemo(() => {
-    if (timer.state === "idle") {
+    if (data.common.state === "idle") {
       return "! DONE !";
     }
 
-    const t = fromSeconds(timer.seconds);
-    if (timer.seconds >= 3600) return format(t, "hh:mm:ss");
-    if (timer.seconds >= 60) return format(t, "mm:ss");
-    return format(t, "ss");
-  }, [timer.seconds, timer.state]);
-  
+    return formatSeconds(data.common.seconds);
+  }, [data.common.seconds, data.common.state]);
+
   const progress = useMemo(
-    () => 1 - timer.seconds / timer.initialSeconds,
-    [timer.initialSeconds, timer.seconds]
+    () => 1 - data.common.seconds / data.common.initialSeconds,
+    [data.common.initialSeconds, data.common.seconds]
   );
 
   useEffect(() => {
     document.title = timerText;
-
   }, [timerText]);
 
-  const repeatInfo = useMemo(() => {
-    if (timerSettings.type === "repeated") {
-      const passedCnt = Math.floor(
-        (timer.initialSeconds - timer.seconds) / timerSettings.secPerRepeat
-      );
-      return {
-        total: timerSettings.times,
-        passedCnt,
-      };
-    }
+  const repeatText: string | undefined = useMemo(() => {
+    if (data.type !== "repeated") return undefined;
 
-    return undefined;
-  }, [timer, timerSettings]);
+    const { lapSeconds, lapCnt, passedLapCnt } = data.repeated!;
+
+    return `${formatSeconds(lapSeconds)} (${passedLapCnt}/${lapCnt})`;
+  }, [data.repeated, data.type]);
 
   return (
     <>
@@ -66,7 +59,7 @@ export default function TimerView({
           flexDirection: "column",
         }}
       >
-        {timer.state !== "idle" && (
+        {data.common.state !== "idle" && (
           <Box
             sx={{
               position: "absolute",
@@ -78,19 +71,19 @@ export default function TimerView({
           />
         )}
         <Typography
-          variant={timer.state === "paused" ? "h3" : "h1"}
+          variant={data.common.state === "paused" ? "h3" : "h1"}
           sx={mergeSx(
             { transition: "all 250ms" },
-            timer.state === "paused" && { fontWeight: 300 }
+            data.common.state === "paused" && { fontWeight: 300 }
           )}
-          color={timer.state !== "running" ? "primary" : undefined}
+          color={data.common.state !== "running" ? "primary" : undefined}
           component="p"
         >
           {timerText}
         </Typography>
-        {repeatInfo && (
+        {repeatText && (
           <Typography variant="h5" sx={{ fontWeight: 300 }}>
-            {repeatInfo.passedCnt}/{repeatInfo.total}
+            {repeatText}
           </Typography>
         )}
       </Container>
