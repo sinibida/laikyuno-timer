@@ -1,6 +1,6 @@
 "use client";
 
-import useOnMount from "@/hooks/useOnMount";
+import useOnMount from "@/lib/hooks/useOnMount";
 import { useEffect, useRef } from "react";
 import { isAutoplayAllowed } from "./isAutoplayAllowed";
 

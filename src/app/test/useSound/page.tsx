@@ -1,6 +1,6 @@
 "use client";
 
-import useSound from "@/hooks/useSound";
+import useSound from "@/lib/hooks/useSound";
 import { Box, Button } from "@mui/material";
 
 export default function Page() {

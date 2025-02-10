@@ -1,5 +1,5 @@
-import { UseTimerReturn } from "@/hooks/useTimer/lib/useTimer";
-import TimerSettings from "@/types/TimerSettings/TimerSettings";
+import { UseTimerReturn } from "@/lib/hooks/useTimer/lib/useTimer";
+import TimerSettings from "@/model/types/TimerSettings/TimerSettings";
 import TimerViewData from "../model/TimerViewData";
 
 export default function useTimerViewData(

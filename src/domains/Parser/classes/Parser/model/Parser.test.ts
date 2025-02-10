@@ -1,4 +1,4 @@
-import TimerSettings from "@/types/TimerSettings/TimerSettings";
+import TimerSettings from "@/model/types/TimerSettings/TimerSettings";
 import Parser from "./Parser";
 import { describe, expect, it } from "vitest";
 import ParserOutput from "./ParserOutput";
