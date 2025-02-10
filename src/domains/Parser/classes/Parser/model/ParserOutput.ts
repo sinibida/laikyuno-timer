@@ -1,4 +1,4 @@
-import TimerSettings from "@/types/TimerSettings/TimerSettings";
+import TimerSettings from "@/model/types/TimerSettings/TimerSettings";
 
 export interface SuccessParserOutput {
   type: "success";

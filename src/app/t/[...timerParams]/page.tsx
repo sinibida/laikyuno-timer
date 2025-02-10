@@ -1,5 +1,5 @@
 import { Parser } from "@/domains/Parser";
-import TimerPage from "@/page/Timer";
+import TimerPage from "@/ui/pages/Timer";
 
 type Params = {
   timerParams: string[];

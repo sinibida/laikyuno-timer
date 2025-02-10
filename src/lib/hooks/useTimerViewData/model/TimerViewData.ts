@@ -1,5 +1,5 @@
-import { UseTimerState } from "@/hooks/useTimer/lib/useTimer";
-import { TimerSettingsType } from "@/types/TimerSettings";
+import { UseTimerState } from "@/lib/hooks/useTimer/lib/useTimer";
+import { TimerSettingsType } from "@/model/types/TimerSettings";
 
 export default interface TimerViewData {
   type: TimerSettingsType;

@@ -1,6 +1,6 @@
-import Dot from "@/components/Dot";
-import Link from "@/components/Link";
-import useVersion from "@/hooks/useVersion";
+import Dot from "@/ui/components/Dot";
+import Link from "@/ui/components/Link";
+import useVersion from "@/lib/hooks/useVersion";
 import { GitHub, Person } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 

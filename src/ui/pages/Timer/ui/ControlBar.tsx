@@ -1,6 +1,6 @@
 "use client";
 
-import { UseTimerReturn } from "@/hooks/useTimer";
+import { UseTimerReturn } from "@/lib/hooks/useTimer";
 import { ArrowBack, Loop, Pause, PlayArrow } from "@mui/icons-material";
 import { Button, Container, Divider, Paper } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";

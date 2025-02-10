@@ -1,18 +1,18 @@
 "use client";
 
-import useOnChange from "@/hooks/useOnChange";
-import useOnMount from "@/hooks/useOnMount";
-import useSound from "@/hooks/useSound";
-import useTimer from "@/hooks/useTimer";
-import NullSnackbar from "@/snippets/NullSnackbar";
+import useOnChange from "@/lib/hooks/useOnChange";
+import useOnMount from "@/lib/hooks/useOnMount";
+import useSound from "@/lib/hooks/useSound";
+import useTimer from "@/lib/hooks/useTimer";
+import NullSnackbar from "@/lib/snippets/NullSnackbar";
 import TimerSettings, {
   TimerSettingsType,
-} from "@/types/TimerSettings/TimerSettings";
+} from "@/model/types/TimerSettings/TimerSettings";
 import { Alert, AlertTitle, Box } from "@mui/material";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import ControlBar from "./ControlBar";
 import TimerView from "./TimerView";
-import useTimerViewData from "@/hooks/useTimerViewData";
+import useTimerViewData from "@/lib/hooks/useTimerViewData";
 
 export interface TimerPageProps {
   timerSettings: TimerSettings;

@@ -1,5 +1,5 @@
-import styles from "@/style/styles";
-import theme from "@/style/theme";
+import styles from "@/res/style/styles";
+import theme from "@/res/style/theme";
 import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import type { Metadata } from "next";

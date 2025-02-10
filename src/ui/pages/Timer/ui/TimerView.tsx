@@ -1,8 +1,8 @@
 "use client";
 
-import { TimerViewData } from "@/hooks/useTimerViewData";
-import fromSeconds from "@/snippets/fromSeconds";
-import mergeSx from "@/snippets/mergeSx";
+import { TimerViewData } from "@/lib/hooks/useTimerViewData";
+import fromSeconds from "@/lib/snippets/fromSeconds";
+import mergeSx from "@/lib/snippets/mergeSx";
 import { Box, Container, Typography } from "@mui/material";
 import { format } from "date-fns";
 import Head from "next/head";
